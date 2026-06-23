@@ -56,6 +56,8 @@ setTodayProfit(
       setFoods(foodRes.data.totalFoods);
       setRecentOrders(recentRes.data);
       setTopItems(topRes.data);
+
+      setLoading(false);
     } catch (error) {
       console.log(error);
     }
