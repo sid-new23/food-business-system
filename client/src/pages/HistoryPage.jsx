@@ -93,8 +93,9 @@ function HistoryPage() {
       <tr key={index}>
 
         <td>
-          {item.foodItem.name}
-        </td>
+  {item.foodItem?.name ||
+    "Deleted Food Item"}
+</td>
 
         <td>
           {item.quantity}
