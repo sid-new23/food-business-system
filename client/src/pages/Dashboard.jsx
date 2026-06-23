@@ -4,9 +4,12 @@ import API from "../services/api";
 function Dashboard() {
   const [sales, setSales] = useState(0);
   const [monthlySales, setMonthlySales] = useState(0);
+    const [todayExpenses, setTodayExpenses] = useState(0);
+  const [todayProfit, setTodayProfit] = useState(0);
   const [orders, setOrders] = useState(0);
   const [foods, setFoods] = useState(0);
   const [recentOrders, setRecentOrders] = useState([]);
+
 
   useEffect(() => {
     loadDashboard();
@@ -14,6 +17,9 @@ function Dashboard() {
 
   const loadDashboard = async () => {
     try {
+          const dashboardRes =
+  await API.get("/dashboard");
+
       const salesRes = await API.get("/orders/sales/today");
 
       const monthRes = await API.get("/orders/sales/month");
@@ -23,7 +29,18 @@ function Dashboard() {
       const recentRes =
   await API.get("/orders/recent");
 
+    
+
       setSales(salesRes.data.totalSales);
+      
+      setTodayExpenses(
+  dashboardRes.data.todayExpenses
+);
+
+setTodayProfit(
+  dashboardRes.data.todayProfit
+);
+
       setMonthlySales(monthRes.data.totalSales);
       setOrders(salesRes.data.totalOrders);
       setFoods(foodRes.data.totalFoods);
@@ -50,6 +67,31 @@ return (
           </div>
         </div>
       </div>
+
+      <div className="col-md-4 mb-3">
+  <div className="card shadow">
+    <div className="card-body">
+      <h5 className="card-title">
+        Today's Expenses
+      </h5>
+
+      <h2>₹{todayExpenses}</h2>
+    </div>
+  </div>
+</div>
+
+<div className="col-md-4 mb-3">
+  <div className="card shadow">
+    <div className="card-body">
+      <h5 className="card-title">
+        Today's Profit
+      </h5>
+
+      <h2>₹{todayProfit}</h2>
+    </div>
+  </div>
+</div>
+
 
       <div className="col-md-4 mb-3">
         <div className="card shadow">

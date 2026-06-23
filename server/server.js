@@ -10,6 +10,9 @@ const authRoutes = require("./routes/authRoutes");
 
 const expenseRoutes = require("./routes/expenseRoutes");
 
+const dashboardRoutes =
+  require("./routes/dashboardRoutes");
+
 dotenv.config();
 
 const connectDB = require("./config/db");
@@ -24,6 +27,10 @@ app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/orders", orderRoutes);
 app.use("/api/expenses", expenseRoutes);
+app.use(
+  "/api/dashboard",
+  dashboardRoutes
+);
 
 app.get("/", (req, res) => {
   res.send("Food Business API Running");
