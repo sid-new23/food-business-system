@@ -13,6 +13,10 @@ const expenseRoutes = require("./routes/expenseRoutes");
 const dashboardRoutes =
   require("./routes/dashboardRoutes");
 
+  const reportRoutes =
+  require("./routes/reportRoutes");
+
+
 dotenv.config();
 
 const connectDB = require("./config/db");
@@ -30,6 +34,10 @@ app.use("/api/expenses", expenseRoutes);
 app.use(
   "/api/dashboard",
   dashboardRoutes
+);
+app.use(
+  "/api/reports",
+  reportRoutes
 );
 
 app.get("/", (req, res) => {

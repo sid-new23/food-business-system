@@ -33,6 +33,15 @@ const [price, setPrice] = useState("");
 
   const addFood = async () => {
   try {
+    if (!name.trim()) {
+  alert("Food name required");
+  return;
+}
+
+if (!price || price <= 0) {
+  alert("Enter valid price");
+  return;
+}
     await API.post("/food", {
       name,
       price: Number(price),
@@ -130,7 +139,15 @@ const updatePrice = async (food) => {
 <td>
   <button
     className="btn btn-danger btn-sm"
-    onClick={() => deleteFood(food._id)}
+    onClick={() => {
+  if (
+    window.confirm(
+      "Are you sure you want to delete this food item?"
+    )
+  ) {
+    deleteFood(food._id);
+  }
+}}
   >
     Delete
   </button>

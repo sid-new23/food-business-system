@@ -102,7 +102,7 @@ function HistoryPage() {
         </td>
 
         <td>
-          ₹{item.subtotal}
+          ₹{item.subtotal.toLocaleString("en-IN")}
         </td>
 
       </tr>
@@ -116,7 +116,7 @@ function HistoryPage() {
           <div className="alert alert-success">
 
   <strong>
-    Total: ₹{order.totalAmount}
+    Total: ₹{order.totalAmount.toLocaleString("en-IN")}
   </strong>
 
 </div>

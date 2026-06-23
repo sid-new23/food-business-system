@@ -27,6 +27,7 @@ router.post("/", async (req, res) => {
 
       orderItems.push({
         foodItem: food._id,
+        foodName: food.name,
         quantity: item.quantity,
         price: food.price,
         subtotal,

@@ -3,13 +3,18 @@ import API from "../services/api";
 
 function Dashboard() {
   const [sales, setSales] = useState(0);
+
   const [monthlySales, setMonthlySales] = useState(0);
     const [todayExpenses, setTodayExpenses] = useState(0);
   const [todayProfit, setTodayProfit] = useState(0);
   const [orders, setOrders] = useState(0);
   const [foods, setFoods] = useState(0);
   const [recentOrders, setRecentOrders] = useState([]);
+const [topItems, setTopItems] =
+  useState([]);
 
+  const [loading, setLoading] =
+  useState(true);
 
   useEffect(() => {
     loadDashboard();
@@ -17,6 +22,8 @@ function Dashboard() {
 
   const loadDashboard = async () => {
     try {
+
+      setLoading(true);
           const dashboardRes =
   await API.get("/dashboard");
 
@@ -29,10 +36,13 @@ function Dashboard() {
       const recentRes =
   await API.get("/orders/recent");
 
-    
+    const topRes =
+  await API.get(
+    "/reports/top-selling"
+  );
 
       setSales(salesRes.data.totalSales);
-      
+
       setTodayExpenses(
   dashboardRes.data.todayExpenses
 );
@@ -45,10 +55,21 @@ setTodayProfit(
       setOrders(salesRes.data.totalOrders);
       setFoods(foodRes.data.totalFoods);
       setRecentOrders(recentRes.data);
+      setTopItems(topRes.data);
     } catch (error) {
       console.log(error);
     }
   };
+
+  if (loading) {
+  return (
+    <div className="container mt-4">
+      <h3>
+        Loading Dashboard...
+      </h3>
+    </div>
+  );
+}
 
 return (
   <div className="container mt-4">
@@ -63,7 +84,7 @@ return (
               Today's Sales
             </h5>
 
-            <h2>₹{sales}</h2>
+            <h2>₹{sales.toLocaleString("en-IN")}</h2>
           </div>
         </div>
       </div>
@@ -75,7 +96,7 @@ return (
         Today's Expenses
       </h5>
 
-      <h2>₹{todayExpenses}</h2>
+      <h2>₹{todayExpenses.toLocaleString("en-IN")}</h2>
     </div>
   </div>
 </div>
@@ -87,7 +108,7 @@ return (
         Today's Profit
       </h5>
 
-      <h2>₹{todayProfit}</h2>
+      <h2>₹{todayProfit.toLocaleString("en-IN")}</h2>
     </div>
   </div>
 </div>
@@ -100,7 +121,7 @@ return (
               Monthly Sales
             </h5>
 
-            <h2>₹{monthlySales}</h2>
+            <h2>₹{monthlySales.toLocaleString("en-IN")}</h2>
           </div>
         </div>
       </div>
@@ -135,7 +156,10 @@ return (
 
     <h3>Recent Orders</h3>
 
-    {recentOrders.map((order) => (
+{recentOrders.length === 0 ? (
+  <p>No recent orders found</p>
+) : (
+  recentOrders.map((order) => (
       <div
         key={order._id}
         className="border-bottom mb-2"
@@ -148,10 +172,41 @@ return (
 
         ₹{order.totalAmount}
       </div>
-    ))}
+    ))
+)}
 
   </div>
 </div>
+
+<div className="card shadow mt-4">
+  <div className="card-body">
+
+    <h3>
+      Top Selling Items
+    </h3>
+
+    {topItems.map(
+      (item, index) => (
+        <div
+          key={index}
+          className="border-bottom py-2"
+        >
+          <strong>
+            {index + 1}.
+            {" "}
+            {item.foodName}
+          </strong>
+
+          <span className="float-end">
+            {item.quantity} sold
+          </span>
+        </div>
+      )
+    )}
+
+  </div>
+</div>
+
   </div>
 );
 }

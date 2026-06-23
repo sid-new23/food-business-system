@@ -104,7 +104,7 @@ if (orderItems.length === 0) {
       >
         {foods.map((food) => (
           <option key={food._id} value={food._id}>
-            {food.name} - ₹{food.price}
+            {food.name} - ₹{food.price.toLocaleString("en-IN")}
           </option>
         ))}
       </select>
@@ -148,7 +148,7 @@ if (orderItems.length === 0) {
     <div key={index} >
       {food.name} x {item.quantity}
       {" = ₹"}
-      {food.price * item.quantity}
+      {(food.price * item.quantity).toLocaleString("en-IN")}
 
       <button
         onClick={() => {
@@ -171,7 +171,7 @@ if (orderItems.length === 0) {
 <hr />
 
 <div className="alert alert-success">
-  <h4>Total = ₹{total}</h4>
+  <h4>Total = ₹{total.toLocaleString("en-IN")}</h4>
 </div>
 
 <button

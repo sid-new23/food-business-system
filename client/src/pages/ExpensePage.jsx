@@ -7,7 +7,11 @@ function ExpensePage() {
 const [expenses, setExpenses] = useState([]);
 const [title, setTitle] = useState("");
 const [amount, setAmount] = useState("");
+
 const [category, setCategory] = useState("");
+const [expenseDate,
+  setExpenseDate] =
+  useState("");
 const [notes, setNotes] = useState("");
 
   useEffect(() => {
@@ -36,17 +40,33 @@ const [notes, setNotes] = useState("");
 
   const addExpense = async () => {
   try {
+    if (!title.trim()) {
+  alert("Expense name required");
+  return;
+}
+
+if (!amount || amount <= 0) {
+  alert("Enter valid amount");
+  return;
+}
+
+if (!expenseDate) {
+  alert("Select expense date");
+  return;
+}
     await API.post("/expenses", {
       title,
       amount: Number(amount),
       category,
       notes,
+      expenseDate,
     });
 
     setTitle("");
     setAmount("");
     setCategory("");
     setNotes("");
+    setExpenseDate("");
 
     fetchExpenses();
   } catch (error) {
@@ -116,6 +136,17 @@ const updatePrice = async (food) => {
 />
 
 <input
+  type="date"
+  className="form-control mb-2"
+  value={expenseDate}
+  onChange={(e) =>
+    setExpenseDate(
+      e.target.value
+    )
+  }
+/>
+
+<input
   className="form-control mb-2"
   type="text"
   placeholder="Notes"
@@ -150,16 +181,22 @@ const updatePrice = async (food) => {
   {expenses.map((expense) => (
     <tr key={expense._id}>
       <td>{expense.title}</td>
-      <td>₹{expense.amount}</td>
+      <td>₹{expense.amount.toLocaleString("en-IN")}</td>
       <td>{expense.category}</td>
       <td>{expense.notes}</td>
 
       <td>
         <button
           className="btn btn-danger btn-sm"
-          onClick={() =>
-            deleteExpense(expense._id)
-          }
+          onClick={() => {
+  if (
+    window.confirm(
+      "Are you sure you want to delete this expense?"
+    )
+  ) {
+    deleteExpense(expense._id);
+  }
+}}
         >
           Delete
         </button>

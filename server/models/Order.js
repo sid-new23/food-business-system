@@ -15,6 +15,10 @@ const orderSchema = new mongoose.Schema(
           ref: "FoodItem",
           required: true,
         },
+        foodName: {
+  type: String,
+  required: true,
+},
 
         quantity: {
           type: Number,

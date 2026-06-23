@@ -30,19 +30,21 @@ router.post(
   async (req, res) => {
     try {
       const {
-        title,
-        amount,
-        category,
-        notes,
-      } = req.body;
+  title,
+  amount,
+  category,
+  notes,
+  expenseDate,
+} = req.body;
 
       const expense =
         await Expense.create({
-          title,
-          amount,
-          category,
-          notes,
-        });
+  title,
+  amount,
+  category,
+  notes,
+  expenseDate,
+});
 
       res.status(201).json(
         expense

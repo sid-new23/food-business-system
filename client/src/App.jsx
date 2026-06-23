@@ -7,6 +7,7 @@ import FoodPage from "./pages/FoodPage";
 import OrderPage from "./pages/OrderPage";
 import HistoryPage from "./pages/HistoryPage";
 import ExpensePage from "./pages/ExpensePage";
+import ReportsPage from "./pages/ReportsPage";
 
 function App() {
   const isLoggedIn =
@@ -65,6 +66,10 @@ function App() {
 >
   Expenses
 </Link>
+<Link className="nav-link" to="/reports">
+  Reports
+</Link>
+
     </div>
   </div>
 <button
@@ -130,6 +135,14 @@ function App() {
   element={
     <ProtectedRoute>
       <ExpensePage />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/reports"
+  element={
+    <ProtectedRoute>
+      <ReportsPage />
     </ProtectedRoute>
   }
 />
