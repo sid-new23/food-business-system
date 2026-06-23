@@ -1,0 +1,10 @@
+{
+  "username": "suhail",
+  "password": "suhail1122"
+}
+
+food-busniess-system.vercel.app
+
+food-business-system.onrender.com
+
+npx plugins add vercel/vercel-plugin
