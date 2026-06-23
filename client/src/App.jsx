@@ -6,6 +6,7 @@ import Dashboard from "./pages/Dashboard";
 import FoodPage from "./pages/FoodPage";
 import OrderPage from "./pages/OrderPage";
 import HistoryPage from "./pages/HistoryPage";
+import ExpensePage from "./pages/ExpensePage";
 
 function App() {
   const isLoggedIn =
