@@ -8,6 +8,8 @@ const orderRoutes = require("./routes/orderRoutes");
 
 const authRoutes = require("./routes/authRoutes");
 
+const expenseRoutes = require("./routes/expenseRoutes");
+
 dotenv.config();
 
 const connectDB = require("./config/db");
@@ -21,7 +23,7 @@ app.use(express.json());
 app.use("/api/auth", authRoutes);
 app.use("/api/food", foodRoutes);
 app.use("/api/orders", orderRoutes);
-
+app.use("/api/expenses", expenseRoutes);
 
 app.get("/", (req, res) => {
   res.send("Food Business API Running");

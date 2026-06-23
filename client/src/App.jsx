@@ -58,7 +58,12 @@ function App() {
       >
         History
       </Link>
-
+    <Link
+  className="nav-link"
+  to="/expenses"
+>
+  Expenses
+</Link>
     </div>
   </div>
 <button
@@ -116,6 +121,14 @@ function App() {
   element={
     <ProtectedRoute>
       <HistoryPage />
+    </ProtectedRoute>
+  }
+/>
+<Route
+  path="/expenses"
+  element={
+    <ProtectedRoute>
+      <ExpensePage />
     </ProtectedRoute>
   }
 />
